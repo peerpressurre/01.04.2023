@@ -56,7 +56,7 @@ public:
         open_mode = 0;
     }
     //Actions 
-    bool Save(string text, bool append = false) {
+    bool Write(string text, bool append = false) {
         if (open_mode != ios::out && append == false)
         {
             open_mode = ios::out;
@@ -141,10 +141,10 @@ int main()
     getline(cin, text1);
     cout << "Enter text for 2nd file: ";
     getline(cin, text2);
-    cout << file1->Save(text1) << endl;
-    cout << file2->Save(text1) << endl;
+    cout << file1->Write(text1) << endl;
+    cout << file2->Write(text1) << endl;
     int lineNum = 1;
-    while (getline(file1, line1) && getline(file2, line2))
+  /*  while (getline(file1, line1) && getline(file2, line2))
     {
         if (text1 != text2) {
             cout << "Рядок " << lineNum << " не збігається:" << endl;
@@ -152,6 +152,6 @@ int main()
             cout << "file2.txt: " << line2 << endl;
         }
         lineNum++;
-    }
+    }*/
     return 0;
 }
