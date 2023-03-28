@@ -139,19 +139,16 @@ int main()
     File* file2 = new File();
     cout << "Enter text for 1st file: ";
     getline(cin, text1);
-    cout << "Enter text for 2nd file: ";
-    getline(cin, text2);
     cout << file1->Write(text1) << endl;
-    cout << file2->Write(text1) << endl;
-    int lineNum = 1;
-  /*  while (getline(file1, line1) && getline(file2, line2))
+    cout << "Enter text2: ";
+    getline(cin, text1);
+    cout << file1->Write(text1, true) << endl;
+    file1->Load(text2);
+    for (size_t i = 0; i < strlen(text2); i++)
     {
-        if (text1 != text2) {
-            cout << "Рядок " << lineNum << " не збігається:" << endl;
-            cout << "file1.txt: " << line1 << endl;
-            cout << "file2.txt: " << line2 << endl;
-        }
-        lineNum++;
-    }*/
+
+    }
+    cout << text2 << endl;
+ 
     return 0;
 }
