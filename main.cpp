@@ -174,50 +174,21 @@ int main()
     string in_text, out_text;
     int digits = 0, symbols = 0, lines = 0, vowels = 0, consonants = 0;
   
-    File* file1 = new File();  //create original file
     File* file2 = new File();  //create copy file
-    int counter = 0;
-    cout << "Enter text for 1st file (for new line type \"/\"): ";
+    File* file1 = new File();  //create original file
 
+    cout << "Enter text (type 'quit' to exit): " << endl;
     while (getline(cin, in_text) && in_text != "quit")
     {
-        file1->Write(in_text);
-    }
-
-   /* while (t != '0')
-    {
-        while (in_text[i] == '/')
-        {
-            cin >> t;
-            in_text[i] = t;
-            i++;
-            counter++;
-        }
-        cout << in_text << endl;
-        if (counter > 0)
-        {
-            file1->Write(in_text, true);
-        }
-        else
+        if (file1->isEmpty())
         {
             file1->Write(in_text);
         }
-    }*/
-   /* getline(cin, in_text);
-    for (size_t i = 0; i < mystrlen(in_text); i++)
-    {
-        if (in_text[i] == '/')
-        {
-            if (in_text[i+1] == 'n')
-            {
-                file1->New_line();
-            }
-        }
         else
         {
-            file1->WriteChar(in_text[i]);
+            file1->Write(in_text, true);
         }
-    }*/
+    }
 
     file1->Load(out_text); //load file out
 
@@ -246,7 +217,7 @@ int main()
     }
     system("pause");
     system("cls");
-    cout << in_text << endl;
+    cout << out_text << endl;
     cout << "Symbols: " << symbols << endl;
     cout << "Lines: " << lines << endl;
     cout << "Vowels: " << vowels << endl;
