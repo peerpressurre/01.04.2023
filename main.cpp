@@ -157,16 +157,6 @@ public:
     void CloseFile() {
         this->file.close();
     }
-    void New_line()  
-    {
-        open_mode = ios::out;
-        file.open(path, open_mode);
-        if (file.is_open())
-        {
-            file << endl;
-            this->CloseFile();
-        }
-    }
 };
 
 int main()
@@ -177,7 +167,7 @@ int main()
     File* file2 = new File();  //create copy file
     File* file1 = new File();  //create original file
 
-    cout << "Enter text (type 'quit' to exit): " << endl;
+    cout << "Enter text (type 'quit' !starting of new line! to exit): " << endl;
     while (getline(cin, in_text) && in_text != "quit")
     {
         if (file1->isEmpty())
