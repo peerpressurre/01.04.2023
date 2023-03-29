@@ -106,16 +106,12 @@ public:
 
     void WriteChar(char c)
     {
-        if (file)
-        {
-
-        }
+        open_mode = ios::app;
         file.open(path, open_mode);
         if (file.is_open())
         {
-            file << text << endl;
+            file << c << endl;
             this->CloseFile();
-            return true;
         }
     }
     bool isEmpty()
@@ -180,9 +176,34 @@ int main()
   
     File* file1 = new File();  //create original file
     File* file2 = new File();  //create copy file
+    int counter = 0;
+    cout << "Enter text for 1st file (for new line type \"/\"): ";
 
-    cout << "Enter text for 1st file (for new line type \"/n\"): ";
-    getline(cin, in_text);
+    while (getline(cin, in_text) && in_text != "quit")
+    {
+        file1->Write(in_text);
+    }
+
+   /* while (t != '0')
+    {
+        while (in_text[i] == '/')
+        {
+            cin >> t;
+            in_text[i] = t;
+            i++;
+            counter++;
+        }
+        cout << in_text << endl;
+        if (counter > 0)
+        {
+            file1->Write(in_text, true);
+        }
+        else
+        {
+            file1->Write(in_text);
+        }
+    }*/
+   /* getline(cin, in_text);
     for (size_t i = 0; i < mystrlen(in_text); i++)
     {
         if (in_text[i] == '/')
@@ -194,9 +215,9 @@ int main()
         }
         else
         {
-            file1->Write(in_text[i]); //fill first file
+            file1->WriteChar(in_text[i]);
         }
-    }
+    }*/
 
     file1->Load(out_text); //load file out
 
@@ -225,7 +246,7 @@ int main()
     }
     system("pause");
     system("cls");
-    cout << out_text << endl;
+    cout << in_text << endl;
     cout << "Symbols: " << symbols << endl;
     cout << "Lines: " << lines << endl;
     cout << "Vowels: " << vowels << endl;
