@@ -103,6 +103,21 @@ public:
             return false;
         }
     }
+
+    void WriteChar(char c)
+    {
+        if (file)
+        {
+
+        }
+        file.open(path, open_mode);
+        if (file.is_open())
+        {
+            file << text << endl;
+            this->CloseFile();
+            return true;
+        }
+    }
     bool isEmpty()
     {
         string buf;
@@ -112,17 +127,6 @@ public:
         }
         else {
             return true;
-        }
-    }
-    string isEmptyStringFormatResponse()
-    {
-        string buf;
-        if (Load(buf))
-        {
-            return (buf.empty()) ? "File empty!" : "File not empty!";
-        }
-        else {
-            return "File not found!";
         }
     }
     bool Load(string& text) {
@@ -190,7 +194,7 @@ int main()
         }
         else
         {
-            file1->Write(in_text); //fill first file
+            file1->Write(in_text[i]); //fill first file
         }
     }
 
