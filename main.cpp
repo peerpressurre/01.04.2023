@@ -2,10 +2,37 @@
 #include <fstream>
 #include <string>
 using namespace std;
+using std::cout;
 using std::istream; 
 using std::ostream; 
 using std::fstream; 
 using std::ios_base;
+#define next_line { cout << endl; }
+
+int mystrlen(string str)
+{
+    int i = 0;
+    int counter = 0;
+    while (str[i] != '\0')
+    {
+        counter++;
+        i++;
+    }
+    return counter;
+}
+
+bool isVowel(char c) 
+{
+    c = toupper(c); 
+    return (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U');
+}
+
+bool isConsonant(char c) {
+    c = toupper(c); 
+    return (c == 'B' || c == 'C' || c == 'D' || c == 'F' || c == 'G' || c == 'H' || c == 'J' || c == 'K' || c == 'L' || c == 'M' || c == 'N' || c == 'P' || c == 'Q' || c == 'R' || c == 'S' || c == 'T' || c == 'V' || c == 'W' || c == 'X' || c == 'Y' || c == 'Z')? true : false;
+}
+
+
 struct File
 {
 private:
@@ -130,25 +157,76 @@ public:
     void CloseFile() {
         this->file.close();
     }
+    void New_line()  
+    {
+        open_mode = ios::out;
+        file.open(path, open_mode);
+        if (file.is_open())
+        {
+            file << endl;
+            this->CloseFile();
+        }
+    }
 };
 
 int main()
 {
-    string text1, text2, line1, line2;
-    File* file1 = new File();
-    File* file2 = new File();
-    cout << "Enter text for 1st file: ";
-    getline(cin, text1);
-    cout << file1->Write(text1) << endl;
-    cout << "Enter text2: ";
-    getline(cin, text1);
-    cout << file1->Write(text1, true) << endl;
-    file1->Load(text2);
-    for (size_t i = 0; i < strlen(text2); i++)
-    {
+    string in_text, out_text;
+    int digits = 0, symbols = 0, lines = 0, vowels = 0, consonants = 0;
+  
+    File* file1 = new File();  //create original file
+    File* file2 = new File();  //create copy file
 
+    cout << "Enter text for 1st file (for new line type \"/n\"): ";
+    getline(cin, in_text);
+    for (size_t i = 0; i < mystrlen(in_text); i++)
+    {
+        if (in_text[i] == '/')
+        {
+            if (in_text[i+1] == 'n')
+            {
+                file1->New_line();
+            }
+        }
+        else
+        {
+            file1->Write(in_text); //fill first file
+        }
     }
-    cout << text2 << endl;
- 
+
+    file1->Load(out_text); //load file out
+
+    for (size_t i = 0; i < mystrlen(out_text); i++)
+    {
+        if (isdigit(out_text[i]))
+        {
+            digits++;
+        }
+        if (isdigit(out_text[i]) || isVowel(out_text[i]) || isConsonant(out_text[i]) || ((out_text[i]) >= 33 && out_text[i] <= 47) || ((out_text[i]) >= 58 && out_text[i] <= 64) || ((out_text[i]) >= 91 && out_text[i] <= 96) || ((out_text[i]) >= 123 && out_text[i] <= 126))
+        {
+            symbols++;
+        }
+        if (out_text[i] == '\n')
+        {
+            lines++;
+        }
+        if (isVowel(out_text[i]))
+        {
+            vowels++;
+        } 
+        if (isConsonant(out_text[i]))
+        {
+            consonants++;
+        }
+    }
+    system("pause");
+    system("cls");
+    cout << out_text << endl;
+    cout << "Symbols: " << symbols << endl;
+    cout << "Lines: " << lines << endl;
+    cout << "Vowels: " << vowels << endl;
+    cout << "Consonants: " << consonants << endl;
+    cout << "Digits: " << digits << endl;
+
     return 0;
 }
