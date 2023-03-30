@@ -104,16 +104,6 @@ public:
         }
     }
 
-    void WriteChar(char c)
-    {
-        open_mode = ios::app;
-        file.open(path, open_mode);
-        if (file.is_open())
-        {
-            file << c << endl;
-            this->CloseFile();
-        }
-    }
     bool isEmpty()
     {
         string buf;
@@ -161,7 +151,7 @@ public:
 
 int main()
 {
-    string in_text, out_text;
+    string in_text, out_text, infostr;
     int digits = 0, symbols = 0, lines = 0, vowels = 0, consonants = 0;
   
     File* file2 = new File();  //create copy file
@@ -181,7 +171,7 @@ int main()
     }
 
     file1->Load(out_text); //load file out
-
+    
     for (size_t i = 0; i < mystrlen(out_text); i++)
     {
         if (isdigit(out_text[i]))
@@ -205,6 +195,8 @@ int main()
             consonants++;
         }
     }
+    infostr = "Symbols: ", symbols, "\n", "Lines: ", lines, "\n", "Vowels: ", vowels, "\n", "Consonants: ", consonants, "\n", "Digits: ", digits;
+    file2->Write(infostr);
     system("pause");
     system("cls");
     cout << out_text << endl;
