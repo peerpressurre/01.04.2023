@@ -213,12 +213,6 @@ int main()
 
     cout << "Text.txt:\n" << out_text << endl;
     cout << "Info:\n" << info << endl;
-    
-    //cout << "Symbols: " << symbols << endl;
-    //cout << "Lines: " << lines << endl;
-    //cout << "Vowels: " << vowels << endl;
-    //cout << "Consonants: " << consonants << endl;
-    //cout << "Digits: " << digits << endl;
-
+   
     return 0;
 }
