@@ -151,11 +151,12 @@ public:
 
 int main()
 {
-    string in_text, out_text, infostr;
+    string in_text, out_text, info;
     int digits = 0, symbols = 0, lines = 0, vowels = 0, consonants = 0;
   
-    File* file2 = new File();  //create copy file
-    File* file1 = new File();  //create original file
+    File* file1 = new File("Text");  
+    File* file2 = new File("Text Info"); 
+
 
     cout << "Enter text (type 'quit' !starting of new line! to exit): " << endl;
     while (getline(cin, in_text) && in_text != "quit")
@@ -170,7 +171,7 @@ int main()
         }
     }
 
-    file1->Load(out_text); //load file out
+    file1->Load(out_text); 
     
     for (size_t i = 0; i < mystrlen(out_text); i++)
     {
@@ -178,7 +179,7 @@ int main()
         {
             digits++;
         }
-        if (isdigit(out_text[i]) || isVowel(out_text[i]) || isConsonant(out_text[i]) || ((out_text[i]) >= 33 && out_text[i] <= 47) || ((out_text[i]) >= 58 && out_text[i] <= 64) || ((out_text[i]) >= 91 && out_text[i] <= 96) || ((out_text[i]) >= 123 && out_text[i] <= 126))
+        if (((out_text[i]) >= 33 && out_text[i] <= 47) || ((out_text[i]) >= 58 && out_text[i] <= 64) || ((out_text[i]) >= 91 && out_text[i] <= 96) || ((out_text[i]) >= 123 && out_text[i] <= 126))
         {
             symbols++;
         }
@@ -195,16 +196,29 @@ int main()
             consonants++;
         }
     }
-    infostr = "Symbols: ", symbols, "\n", "Lines: ", lines, "\n", "Vowels: ", vowels, "\n", "Consonants: ", consonants, "\n", "Digits: ", digits;
-    file2->Write(infostr);
+    
+    file2->Write("Symbols: ");
+    file2->Write(to_string(symbols), true);
+    file2->Write("Lines: ", true);
+    file2->Write(to_string(lines), true);
+    file2->Write("Vowels: ", true);
+    file2->Write(to_string(vowels), true);
+    file2->Write("Consonants: ", true);
+    file2->Write(to_string(consonants), true);
+    file2->Write("Digits: ", true);
+    file2->Write(to_string(digits), true);
+    file2->Load(info);
     system("pause");
     system("cls");
-    cout << out_text << endl;
-    cout << "Symbols: " << symbols << endl;
-    cout << "Lines: " << lines << endl;
-    cout << "Vowels: " << vowels << endl;
-    cout << "Consonants: " << consonants << endl;
-    cout << "Digits: " << digits << endl;
+
+    cout << "Text.txt:\n" << out_text << endl;
+    cout << "Info:\n" << info << endl;
+    
+    //cout << "Symbols: " << symbols << endl;
+    //cout << "Lines: " << lines << endl;
+    //cout << "Vowels: " << vowels << endl;
+    //cout << "Consonants: " << consonants << endl;
+    //cout << "Digits: " << digits << endl;
 
     return 0;
 }
