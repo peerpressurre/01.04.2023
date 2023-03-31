@@ -169,7 +169,7 @@ int main()
     file2->Load(text2);
 
     int j = 0, i = 0;
-    while (text1[i] || text2[j])
+    while ((text1 > text2)? text1[i] || text2[j])
     {
 
         while (text1[i] != '\n')
