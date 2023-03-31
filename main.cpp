@@ -135,8 +135,8 @@ public:
 int main()
 {
     string text1, text2, outtext1, outtext2, line1, line2;
-    File* file1 = new File("File1");
-    File* file2 = new File("File2");
+    File* file1 = new File("Ex1(1)");
+    File* file2 = new File("Ex1(2)");
     cout << "Enter text 1 (type 'quit' !starting of new line! to exit): " << endl;
     while (getline(cin, text1) && text1 != "quit")
     {
@@ -149,20 +149,21 @@ int main()
             file1->Write(text1, true);
         }
     }
+
     cout << "Enter text 2 (type 'quit' !starting of new line! to exit): " << endl;
     while (getline(cin, text2) && text2 != "quit")
     {
-        if (file1->isEmpty())
+        if (file2->isEmpty())
         {
-            file1->Write(text2);
+            file2->Write(text2);
         }
         else
         {
-            file1->Write(text2, true);
+            file2->Write(text2, true);
         }
     }   
-    cout << file1->Write(text1) << endl;
-    cout << file2->Write(text1) << endl;
+    cout << file1->Write(outtext1) << endl;
+    cout << file2->Write(outtext2) << endl;
 
     file1->Load(text1); //loading out in case there was already text in that file
     file2->Load(text2);
