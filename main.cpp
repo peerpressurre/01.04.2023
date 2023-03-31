@@ -197,7 +197,7 @@ int main()
         }
     }
     
-    file2->Write("Symbols: ");
+    file2->Write("Symbols: ", false);
     file2->Write(to_string(symbols), true);
     file2->Write("Lines: ", true);
     file2->Write(to_string(lines), true);
