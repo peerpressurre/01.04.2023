@@ -154,8 +154,8 @@ int main()
     string in_text, out_text, info;
     int digits = 0, symbols = 0, lines = 0, vowels = 0, consonants = 0;
   
-    File* file1 = new File("Text");  
-    File* file2 = new File("Text Info"); 
+    File* file1 = new File("ex2(Text)");  
+    File* file2 = new File("ex2(Text Info)"); 
 
 
     cout << "Enter text (type 'quit' !starting of new line! to exit): " << endl;
