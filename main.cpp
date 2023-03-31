@@ -134,24 +134,55 @@ public:
 
 int main()
 {
-    string text1, text2, line1, line2;
-    File* file1 = new File();
-    File* file2 = new File();
-    cout << "Enter text for 1st file: ";
-    getline(cin, text1);
-    cout << "Enter text for 2nd file: ";
-    getline(cin, text2);
+    string text1, text2, outtext1, outtext2, line1, line2;
+    File* file1 = new File("File1");
+    File* file2 = new File("File2");
+    cout << "Enter text 1 (type 'quit' !starting of new line! to exit): " << endl;
+    while (getline(cin, text1) && text1 != "quit")
+    {
+        if (file1->isEmpty())
+        {
+            file1->Write(text1);
+        }
+        else
+        {
+            file1->Write(text1, true);
+        }
+    }
+    cout << "Enter text 2 (type 'quit' !starting of new line! to exit): " << endl;
+    while (getline(cin, text2) && text2 != "quit")
+    {
+        if (file1->isEmpty())
+        {
+            file1->Write(text2);
+        }
+        else
+        {
+            file1->Write(text2, true);
+        }
+    }   
     cout << file1->Write(text1) << endl;
     cout << file2->Write(text1) << endl;
-    int lineNum = 1;
-    /*  while (getline(file1, line1) && getline(file2, line2))
-      {
-          if (text1 != text2) {
-              cout << "Рядок " << lineNum << " не збігається:" << endl;
-              cout << "file1.txt: " << line1 << endl;
-              cout << "file2.txt: " << line2 << endl;
-          }
-          lineNum++;
-      }*/
+
+    file1->Load(text1); //loading out in case there was already text in that file
+    file2->Load(text2);
+
+    int j = 0, i = 0;
+    while (text1[i] || text2[j])
+    {
+
+        while (text1[i] != '\n')
+        {
+            line1 += text1[i];
+            i++;
+        }
+        while (text2[j] != '\n')
+        {
+            line2 += text2[j];
+            j++;
+        }
+        cout << "Line1: " << line1 << "\t" << "Line2: " << line2 << endl;
+    }
+    
     return 0;
 }
