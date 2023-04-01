@@ -157,19 +157,33 @@ int mystrlen(string str)
     }
     return counter;
 }
-string mygetline(string str, string line, char divider = '\n')
-{
-    char c;
-    for (size_t i = 0, j; i < mystrlen(str); i++)
-    {
-        while (str[i] != divider)
-        {
-            line[i] = str[i];
-           
-        }
+//string mygetline(string str, string line, char divider = '\n')
+//{
+//    char c;
+//    for (size_t i = 0, j; i < mystrlen(str); i++)
+//    {
+//        while (str[i] != divider)
+//        {
+//            line[i] = str[i];
+//           
+//        }
+//    }
+//    return line;
+//}
+
+void myGetline(const std::string& str, std::string& line, size_t& pos) {
+    size_t start = pos;
+    size_t end = str.find('\n', start);
+    if (end == std::string::npos) {
+        line = str.substr(start);
+        pos = str.size();
     }
-    return line;
+    else {
+        line = str.substr(start, end - start);
+        pos = end + 1;
+    }
 }
+
 int main()
 {
     string text1, text2, outtext1, outtext2, line1, line2;
