@@ -22,8 +22,6 @@ int mystrlen(string str)
 }
 
 
-
-
 struct File
 {
 private:
@@ -86,7 +84,7 @@ public:
         file.open(path, open_mode);
         if (file.is_open())
         {
-            file << text << endl;
+            file << text << endl; 
             this->CloseFile();
             return true;
         }
@@ -138,12 +136,27 @@ public:
     void CloseFile() {
         this->file.close();
     }
+     bool Clear()
+   {
+       if (open_mode != ios::out)
+       {
+           open_mode = ios::out;
+       }
+       file.open(path, open_mode);
+       if (file.is_open())
+       {
+           file << "" << endl;
+           this->CloseFile();
+       }
+       return (this->isEmpty()) ? true : false;
+   }
 };
 
 string Cezar(int index, string text)
 {
     string text2(text.length(), ' ');
-    string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    int size = mystrlen(alphabet);
     for (size_t i = 0; i < mystrlen(text); i++)
     {
         if (isalpha(text [i]) || isdigit(text[i]))
@@ -155,7 +168,14 @@ string Cezar(int index, string text)
                 {
                     if (text[i] == alphabet[j])
                     {
-                        text2[i] = (alphabet[j - index]);
+                        if ((j + index) > size)
+                        {
+                            text2[i] = (alphabet[(j + index) - size]);
+                        }
+                        else
+                        {
+                            text2[i] = (alphabet[j + index]);
+                        }
                         text2[i] = tolower(text2[i]);
                     }
                 }
@@ -166,7 +186,14 @@ string Cezar(int index, string text)
                 {
                     if (text[i] == alphabet[j])
                     {
-                        text2[i] = (alphabet[j - index]);
+                        if ((j + index) > size)
+                        {
+                            text2[i] = (alphabet[(j + index) - size]);
+                        }
+                        else
+                        {
+                            text2[i] = (alphabet[j + index]);
+                        }
                     }
                 }
             }
@@ -181,22 +208,34 @@ string Cezar(int index, string text)
 
 int main()
 {
-    string text1, text2;
+    string text1, textC, text2;
     int index;
     File* file1 = new File("Ex3(Orig)");
     File* file2 = new File("Ex3(Cezar)");
+    if ((file1->isEmpty()) == false)
+    {
+        file1->Clear();
+    }
     cout << "Enter text (type 'quit' !starting of new line! to exit): " << endl;
     while (getline(cin, text1) && text1 != "quit")
     {
-        file1->Write(text1);
+        if (file1->isEmpty())
+        {
+            file1->Write(text1);
+        }
+        else
+        {
+            file1->Write(text1, true);
+        }
     }
+    file1->Load(text2);
     cout << "Enter index for cipher: ";
     cin >> index;
-    text2 = Cezar(index, text1);
+    textC = Cezar(index, text2);
     system("pause");
     system("cls");
-    cout << text2 << endl;
-    cout << "Original text: " << text1 << endl;
-    cout << "Cezar cipher by index " << index << ": " << Cezar(index, text1) << endl;
+    file2->Write(textC);
+    cout << "Original text:\n" << text2 << endl;
+    cout << "Cezar cipher by index " << index << ":\n" << textC << endl;
     return 0;
 }
