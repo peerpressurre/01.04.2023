@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
 using namespace std;
 using std::istream;
 using std::ostream;
@@ -130,13 +131,58 @@ public:
     void CloseFile() {
         this->file.close();
     }
-};
-
+    bool Clear()
+    {
+        if (open_mode != ios::out)
+        {
+            open_mode = ios::out;
+        }
+        file.open(path, open_mode);
+        if (file.is_open())
+        {
+            file << "" << endl;
+            this->CloseFile();
+        }
+        return (this->isEmpty()) ? true : false;
+    }
+}; 
+int mystrlen(string str)
+{
+    int i = 0;
+    int counter = 0;
+    while (str[i] != '\0')
+    {
+        counter++;
+        i++;
+    }
+    return counter;
+}
+string mygetline(string str, string line, char divider = '\n')
+{
+    char c;
+    for (size_t i = 0, j; i < mystrlen(str); i++)
+    {
+        while (str[i] != divider)
+        {
+            line[i] = str[i];
+           
+        }
+    }
+    return line;
+}
 int main()
 {
     string text1, text2, outtext1, outtext2, line1, line2;
     File* file1 = new File("Ex1(1)");
     File* file2 = new File("Ex1(2)");
+    if ((file1->isEmpty()) == false)
+    {
+        file1->Clear();
+    }
+    if ((file2->isEmpty()) == false)
+    {
+        file2->Clear();
+    }
     cout << "Enter text 1 (type 'quit' !starting of new line! to exit): " << endl;
     while (getline(cin, text1) && text1 != "quit")
     {
@@ -162,28 +208,29 @@ int main()
             file2->Write(text2, true);
         }
     }   
-    cout << file1->Write(outtext1) << endl;
-    cout << file2->Write(outtext2) << endl;
+ 
+    file1->Load(outtext1); //loading out in case there was already text in that file
+    file2->Load(outtext2);
 
-    file1->Load(text1); //loading out in case there was already text in that file
-    file2->Load(text2);
+    cout << "Tex1:\n" << outtext1 << endl;
+    cout << "Tex2:\n" << outtext2 << endl;
 
+    cout << "Check:" << mygetline(outtext1, line1) << endl;
     int j = 0, i = 0;
-    while ((text1 > text2)? text1[i] || text2[j])
-    {
+  
 
-        while (text1[i] != '\n')
+    /*while (getline(file1, line1) && getline(file2, line2))
+    {
+        i++;
+        if (line1 == line2)
         {
-            line1 += text1[i];
-            i++;
+            cout << line1 << "\t=\t" << line2 << endl;
         }
-        while (text2[j] != '\n')
+        else
         {
-            line2 += text2[j];
-            j++;
+            cout << line1 << "\t!=\t" << line2 << endl;
         }
-        cout << "Line1: " << line1 << "\t" << "Line2: " << line2 << endl;
-    }
+    }*/
     
     return 0;
 }
