@@ -161,12 +161,15 @@ int main()
     cout << "Enter text (type 'quit' !starting of new line! to exit): " << endl;
     while (getline(cin, in_text) && in_text != "quit")
     {
+        
         if (file1->isEmpty())
         {
+            cout << "outing" << endl;;
             file1->Write(in_text);
         }
         else
         {
+            cout << "appending" << endl;
             file1->Write(in_text, true);
         }
     }
