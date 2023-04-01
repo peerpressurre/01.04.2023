@@ -21,7 +21,6 @@ int mystrlen(string str)
     return counter;
 }
 
-
 struct File
 {
 private:
