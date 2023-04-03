@@ -228,9 +228,17 @@ int main()
 
     cout << "Tex1:\n" << outtext1 << endl;
     cout << "Tex2:\n" << outtext2 << endl;
-
-    cout << "Check:" << mygetline(outtext1, line1) << endl;
-    int j = 0, i = 0;
+    int line_number = 1;
+    while (getline(file1, line1) && getline(file2, line2)) {
+        if (line1 != line2)
+        {
+            cout << "Mismatch on line " << line_number << ":" << endl;
+            cout << "File 1: " << line1 << endl;
+            cout << "File 2: " << line2 << endl;
+            return 0;
+        }
+        line_number++;
+    }
   
 
     /*while (getline(file1, line1) && getline(file2, line2))
